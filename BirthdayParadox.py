@@ -4,7 +4,8 @@ from typing import Optional
 
 class BirthdayGen:
     """
-    Randomly generate birthday, to test "Birthday paradox"
+    Randomly generate birthdays, to test "Birthday paradox"
+    Use paradoxAnalysis with arguments 1. test samples 2.people number in a group.
     """
 
     def __init__(self) -> None:
