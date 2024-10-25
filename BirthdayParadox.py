@@ -1,11 +1,12 @@
 import random
-from typing import Optional
+from typing import Optional, Union
 
 
 class BirthdayGen:
     """
     Randomly generate birthdays, to test "Birthday paradox"
-    Use paradoxAnalysis with arguments 1. test samples 2.people number in a group.
+    Use paradoxAnalysis with arguments 1. test samples 2.people number in a group (max 100).
+    Condition: the maximum number of a group is 100
     """
 
     def __init__(self) -> None:
@@ -49,9 +50,8 @@ class BirthdayGen:
         random_month = random.randint(0, 11)
         for key, val in self.days.items():
             if (random_month + 1) in val:
-                day_seed = key
+                random_day = random.randint(1, key)
                 break
-        random_day = random.randint(1, day_seed)
 
         return f"{month[random_month]} {random_day}"
 
@@ -78,7 +78,7 @@ class BirthdayGen:
 
         return counts
 
-    def massGenerate(self, birthday_num: int):
+    def massGenerate(self, birthday_num: int) -> Union[list, None]:
         if 0 > birthday_num and birthday_num > self.MAX_BIRTHDAYS:
             return None
 
@@ -100,12 +100,13 @@ class BirthdayGen:
             odd_match_birthdays = (
                 round(sum(self.simulation) / len(self.simulation), 4) * 100
             )
-            conclusion = f"""***************************************************************
-Within {num_experiment} samples, 
-we calculated the odds of match birthdays at a {num_birthdays} people group, 
-the result is {odd_match_birthdays}%.
-****************************************************************
-"""
+            conclusion = f"""
+            ****************************************************************
+            Within {num_experiment} samples, 
+            we calculated the odds of match birthdays at a {num_birthdays} people group, 
+            the result is {odd_match_birthdays}%.
+            ****************************************************************
+            """
 
             return conclusion
         except Exception:
